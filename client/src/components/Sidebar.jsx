@@ -119,19 +119,20 @@ const Sidebar = ({
           sx={{
             width: drawerWidth,
             "& .MuiDrawer-paper": {
-              color: theme.palette.secondary[200],
-              backgroundColor: theme.palette.background.alt,
+              color: theme.palette.text.primary,
+              backgroundColor: theme.palette.background.paper,
               boxSixing: "border-box",
               borderWidth: isNonMobile ? 0 : "2px",
               width: drawerWidth,
+              borderRight: `1px solid ${theme.palette.accent?.main || theme.palette.secondary.main}`,
             },
           }}
         >
           <Box width="100%">
             <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.secondary.main}>
+              <FlexBetween color={theme.palette.primary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
+                  <Typography variant="h4" fontWeight="bold" sx={{ color: theme.palette.primary.main }}>
                     ECOMVISION
                   </Typography>
                 </Box>
@@ -146,7 +147,17 @@ const Sidebar = ({
               {navItems.map(({ text, icon }) => {
                 if (!icon) {
                   return (
-                    <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
+                    <Typography 
+                      key={text} 
+                      sx={{ 
+                        m: "2.25rem 0 1rem 3rem",
+                        color: theme.palette.accent?.main || theme.palette.secondary.main,
+                        fontWeight: 600,
+                        fontSize: "0.9rem",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px"
+                      }}
+                    >
                       {text}
                     </Typography>
                   );
@@ -163,12 +174,27 @@ const Sidebar = ({
                       sx={{
                         backgroundColor:
                           active === lcText
-                            ? theme.palette.secondary[300]
+                            ? theme.palette.mode === "dark"
+                              ? theme.palette.accent?.[700] || theme.palette.secondary[700]
+                              : theme.palette.accent?.main || theme.palette.secondary[300]
                             : "transparent",
                         color:
                           active === lcText
-                            ? theme.palette.primary[600]
-                            : theme.palette.secondary[100],
+                            ? theme.palette.mode === "dark"
+                              ? theme.palette.grey[50]
+                              : theme.palette.primary.dark
+                            : theme.palette.text.primary,
+                        "&:hover": {
+                          backgroundColor: theme.palette.mode === "dark" 
+                            ? theme.palette.accent?.[800] || theme.palette.secondary[800]
+                            : theme.palette.accent?.[200] || theme.palette.secondary[200],
+                          color: theme.palette.mode === "dark"
+                            ? theme.palette.accent?.main || theme.palette.secondary.main
+                            : theme.palette.text.primary,
+                        },
+                        borderRadius: "8px",
+                        margin: "4px 8px",
+                        transition: "all 0.2s ease-in-out",
                       }}
                     >
                       <ListItemIcon
@@ -176,13 +202,28 @@ const Sidebar = ({
                           ml: "2rem",
                           color:
                             active === lcText
-                              ? theme.palette.primary[600]
-                              : theme.palette.secondary[200],
+                              ? theme.palette.mode === "dark"
+                                ? theme.palette.grey[50]
+                                : theme.palette.primary.dark
+                              : theme.palette.text.secondary,
+                          ".MuiListItemButton-root:hover &": {
+                            color: theme.palette.mode === "dark"
+                              ? theme.palette.accent?.main || theme.palette.secondary.main
+                              : theme.palette.text.primary,
+                          },
+                          transition: "color 0.2s ease-in-out",
                         }}
                       >
                         {icon}
                       </ListItemIcon>
-                      <ListItemText primary={text} />
+                      <ListItemText 
+                        primary={text}
+                        sx={{
+                          "& .MuiTypography-root": {
+                            transition: "color 0.2s ease-in-out",
+                          }
+                        }}
+                      />
                       {active === lcText && (
                         <ChevronRightOutlined sx={{ ml: "auto" }} />
                       )}

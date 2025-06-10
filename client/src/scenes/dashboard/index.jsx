@@ -65,11 +65,14 @@ const Dashboard = () => {
         <Box>
           <Button
             sx={{
-              backgroundColor: theme.palette.secondary.light,
-              color: theme.palette.background.alt,
+              backgroundColor: theme.palette.accent?.main || theme.palette.secondary.main,
+              color: theme.palette.primary.dark,
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
+              "&:hover": {
+                backgroundColor: theme.palette.accent?.[600] || theme.palette.secondary.dark,
+              },
             }}
           >
             <DownloadOutlined sx={{ mr: "10px" }} />
@@ -96,7 +99,7 @@ const Dashboard = () => {
           description="Since last month"
           icon={
             <Email
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+              sx={{ color: theme.palette.highlight?.main || theme.palette.secondary[300], fontSize: "26px" }}
             />
           }
         />
@@ -107,7 +110,7 @@ const Dashboard = () => {
           description="Since last month"
           icon={
             <PointOfSale
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+              sx={{ color: theme.palette.accent?.main || theme.palette.secondary[300], fontSize: "26px" }}
             />
           }
         />
@@ -127,7 +130,7 @@ const Dashboard = () => {
           description="Since last month"
           icon={
             <PersonAdd
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+              sx={{ color: theme.palette.secondary.main, fontSize: "26px" }}
             />
           }
         />
@@ -138,7 +141,7 @@ const Dashboard = () => {
           description="Since last month"
           icon={
             <Traffic
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+              sx={{ color: theme.palette.primary.main, fontSize: "26px" }}
             />
           }
         />
@@ -150,7 +153,7 @@ const Dashboard = () => {
           sx={{
             "& .MuiDataGrid-root": {
               border: "none",
-              borderRadius: "5rem",
+              borderRadius: "0.55rem",
             },
             "& .MuiDataGrid-cell": {
               borderBottom: "none",
